@@ -1,6 +1,7 @@
 package com.sakalti.elemenstars.tabs;
 
 import com.sakalti.elemenstars.items.FireSword;
+import com.sakalti.elemenstars.items.FireGreatSword; // FireGreatSwordをインポート
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.event.CreativeModeTabEvent;
@@ -20,11 +21,13 @@ public class FirelandTab {
     public static final RegistryObject<Item> NETHERRACK_ITEM = ITEMS.register("netherrack_item", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> STONE_ITEM = ITEMS.register("stone_item", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> FIRE_SWORD = ITEMS.register("fire_sword", FireSword::new);
+    public static final RegistryObject<Item> FIRE_GREAT_SWORD = ITEMS.register("fire_great_sword", FireGreatSword::new); // FireGreatSwordを追加
 
     public static final Item[] items = {
         NETHERRACK_ITEM.get(),
         STONE_ITEM.get(),
-        FIRE_SWORD.get()
+        FIRE_SWORD.get(),
+        FIRE_GREAT_SWORD.get() // FireGreatSwordを追加
     };
 
     @SubscribeEvent
@@ -41,6 +44,7 @@ public class FirelandTab {
             event.accept(STONE_ITEM);
         } else if (event.getTab() == CreativeModeTabs.COMBAT) {
             event.accept(FIRE_SWORD);
+            event.accept(FIRE_GREAT_SWORD); // FireGreatSwordを追加
         }
     }
 }
