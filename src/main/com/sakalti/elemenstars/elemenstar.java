@@ -1,4 +1,4 @@
-package com.sakalti.elemenstars
+package com.sakalti.elemenstars;
 
 import net.minecraftforge.fml.common.Mod;
 
