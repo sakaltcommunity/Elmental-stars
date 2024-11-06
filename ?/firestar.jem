@@ -1,0 +1,18 @@
+{
+	"credit": "Made with Blockbench",
+	"textureSize": [16, 16],
+	"texture": "2024_11_06_0ge_Kleki.png",
+	"models": [
+		{
+			"part": "bone",
+			"id": "bone",
+			"invertAxis": "xy",
+			"translate": [0, -7, 0],
+			"boxes": [
+				{"coordinates": [-1, 7, -1, 2, 2, 2], "textureOffset": [0, 0]},
+				{"coordinates": [-1, 7, -1, 8, 1, 1], "textureOffset": [-5, 1]},
+				{"coordinates": [-9, 7, -1, 8, 1, 1], "textureOffset": [-5, 1]}
+			]
+		}
+	]
+}
