@@ -14,13 +14,14 @@ import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.EnumSet;
+import java.util.Random;
 
 public class FireStarEntity extends Monster {
 
@@ -50,6 +51,13 @@ public class FireStarEntity extends Monster {
     @Override
     public void die(DamageSource cause) {
         super.die(cause);
+        if (!this.level.isClientSide) {
+            Random random = new Random();
+            if (random.nextFloat() < 0.15) { // 15%の確率でドロップ
+                ItemStack drop = new ItemStack(Items.BLAZE_POWDER); // ブレイズパウダーを設定
+                this.spawnAtLocation(drop, 0.0F); // ドロップアイテムをスポーン
+            }
+        }
     }
 
     // ダメージの設定（4ダメージ）
