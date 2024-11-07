@@ -41,8 +41,11 @@ public class Hiver extends Item {
             HitResult hitResult = level.clip(new net.minecraft.world.phys.BlockHitResult(reachEnd));
 
             if (hitResult != null && hitResult.getType() == HitResult.Type.ENTITY && hitResult.distanceTo(player) <= MAX_USE_DISTANCE) {
-                // 攻撃を行う
+                // 無敵時間を無視して攻撃を行う
+                target.invulnerableTime = 0; // 無敵時間をリセット
                 target.hurt(DamageSource.playerAttack(player), (float) DAMAGE);
+                
+                // 耐久値を減少
                 stack.hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(hand));
 
                 // クールダウンの設定
