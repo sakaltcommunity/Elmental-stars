@@ -3,7 +3,8 @@ package com.sakalti.elemenstars.tabs;
 import com.sakalti.elemenstars.items.FireSword;
 import com.sakalti.elemenstars.items.FireGreatSword;
 import com.sakalti.elemenstars.items.Freron;
-import com.sakalti.elemenstars.items.Hiver; // ハイバーをインポート
+import com.sakalti.elemenstars.items.Hiver;
+import com.sakalti.elemenstars.items.FlameRifle; // FlameRifleをインポート
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Item;
@@ -23,7 +24,8 @@ public class FirelandTab {
     public static final RegistryObject<Item> FIRE_SWORD = ITEMS.register("fire_sword", FireSword::new);
     public static final RegistryObject<Item> FIRE_GREAT_SWORD = ITEMS.register("fire_great_sword", FireGreatSword::new);
     public static final RegistryObject<Item> FRERON = ITEMS.register("freron", Freron::new);
-    public static final RegistryObject<Item> HIVER = ITEMS.register("hiver", Hiver::new); // ハイバーの登録
+    public static final RegistryObject<Item> HIVER = ITEMS.register("hiver", Hiver::new); 
+    public static final RegistryObject<Item> FLAME_RIFLE = ITEMS.register("flame_rifle", FlameRifle::new); // FlameRifleの登録
     
     public static final CreativeModeTab FIRELAND_TAB = new CreativeModeTab("fireland_tab") {
         @Override
@@ -38,7 +40,8 @@ public class FirelandTab {
             event.accept(FIRE_SWORD);
             event.accept(FIRE_GREAT_SWORD);
             event.accept(FRERON);
-            event.accept(HIVER); // ハイバーをタブに追加
+            event.accept(HIVER);
+            event.accept(FLAME_RIFLE); // FlameRifleをタブに追加
         }
     }
 }
