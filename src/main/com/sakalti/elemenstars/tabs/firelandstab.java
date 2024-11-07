@@ -2,7 +2,8 @@ package com.sakalti.elemenstars.tabs;
 
 import com.sakalti.elemenstars.items.FireSword;
 import com.sakalti.elemenstars.items.FireGreatSword;
-import com.sakalti.elemenstars.items.Freron; // 修正後のフレロンをインポート
+import com.sakalti.elemenstars.items.Freron;
+import com.sakalti.elemenstars.items.Hiver; // ハイバーをインポート
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Item;
@@ -12,7 +13,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import com.sakalti.elemenstars.elemenstars; // MODのメインクラスをインポート
+import com.sakalti.elemenstars.elemenstars;
 
 @Mod.EventBusSubscriber(modid = elemenstars.MOD_ID)
 public class FirelandTab {
@@ -21,9 +22,9 @@ public class FirelandTab {
     
     public static final RegistryObject<Item> FIRE_SWORD = ITEMS.register("fire_sword", FireSword::new);
     public static final RegistryObject<Item> FIRE_GREAT_SWORD = ITEMS.register("fire_great_sword", FireGreatSword::new);
-    public static final RegistryObject<Item> FRERON = ITEMS.register("freron", Freron::new); // フレロンアイテムの登録
+    public static final RegistryObject<Item> FRERON = ITEMS.register("freron", Freron::new);
+    public static final RegistryObject<Item> HIVER = ITEMS.register("hiver", Hiver::new); // ハイバーの登録
     
-    // 新しいタブの登録
     public static final CreativeModeTab FIRELAND_TAB = new CreativeModeTab("fireland_tab") {
         @Override
         public ItemStack makeIcon() {
@@ -36,7 +37,8 @@ public class FirelandTab {
         if (event.getTab() == FIRELAND_TAB) {
             event.accept(FIRE_SWORD);
             event.accept(FIRE_GREAT_SWORD);
-            event.accept(FRERON); // フレロンをタブに追加
+            event.accept(FRERON);
+            event.accept(HIVER); // ハイバーをタブに追加
         }
     }
 }
