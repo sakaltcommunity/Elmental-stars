@@ -2,7 +2,7 @@ package com.sakalti.elemenstars.tabs;
 
 import com.sakalti.elemenstars.items.FireSword;
 import com.sakalti.elemenstars.items.FireGreatSword;
-import net.minecraft.world.item.CreativeModeTabs;
+import com.sakalti.elemenstars.items.Freron; // 修正後のフレロンをインポート
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Item;
@@ -21,6 +21,7 @@ public class FirelandTab {
     
     public static final RegistryObject<Item> FIRE_SWORD = ITEMS.register("fire_sword", FireSword::new);
     public static final RegistryObject<Item> FIRE_GREAT_SWORD = ITEMS.register("fire_great_sword", FireGreatSword::new);
+    public static final RegistryObject<Item> FRERON = ITEMS.register("freron", Freron::new); // フレロンアイテムの登録
     
     // 新しいタブの登録
     public static final CreativeModeTab FIRELAND_TAB = new CreativeModeTab("fireland_tab") {
@@ -35,6 +36,7 @@ public class FirelandTab {
         if (event.getTab() == FIRELAND_TAB) {
             event.accept(FIRE_SWORD);
             event.accept(FIRE_GREAT_SWORD);
+            event.accept(FRERON); // フレロンをタブに追加
         }
     }
 }
