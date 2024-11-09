@@ -8,7 +8,7 @@ import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.item.ItemCooldowns;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -36,11 +36,10 @@ public class Hiver extends Item {
 
             // エンティティの距離を確認
             Vec3 playerPosition = player.getEyePosition(1.0F);
-            Vec3 lookDirection = player.getLookAngle().scale(MAX_USE_DISTANCE);
-            Vec3 reachEnd = playerPosition.add(lookDirection);
-            HitResult hitResult = level.clip(new net.minecraft.world.phys.BlockHitResult(reachEnd));
+            Vec3 targetPosition = target.position();
+            double distance = playerPosition.distanceTo(targetPosition);
 
-            if (hitResult != null && hitResult.getType() == HitResult.Type.ENTITY && hitResult.distanceTo(player) <= MAX_USE_DISTANCE) {
+            if (distance <= MAX_USE_DISTANCE) {
                 // 無敵時間を無視して攻撃を行う
                 target.invulnerableTime = 0; // 無敵時間をリセット
                 target.hurt(DamageSource.playerAttack(player), (float) DAMAGE);
