@@ -1,98 +1,54 @@
-package com.sakalti.elemenstars.entities;
+package com.sakalti.elemenstars.dimension;
 
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.dimension.DimensionType;
+import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
+import com.sakalti.elemenstars.entities.IceSlimeEntity; // 新しいエンティティをインポート
+import com.sakalti.elemenstars.elemenstars;
 
-import java.util.EnumSet;
+public class Iceteria {
 
-public class IceSlimeEntity extends Monster {
+    public static final DeferredRegister<DimensionType> DIMENSIONS = DeferredRegister.create(ForgeRegistries.DIMENSIONS, elemenstars.MOD_ID);
+    public static final RegistryObject<DimensionType> ICETERIA_DIM = DIMENSIONS.register("iceteria", () -> DimensionType.createOverworld(new IceteriaDimensionType()));
 
-    public static final EntityType<IceSlimeEntity> ICE_SLIME = EntityType.Builder.of(IceSlimeEntity::new, MobCategory.MONSTER)
-            .sized(0.6F, 0.6F)
-            .build("ice_slime");
+    public static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(ForgeRegistries.BIOMES, elemenstars.MOD_ID);
 
-    private static final double DAMAGE = 6.0; // Normalでの攻撃ダメージ
+    public static void register(IEventBus eventBus) {
+        // ディメンションとバイオームをイベントバスに登録
+        DIMENSIONS.register(eventBus);
+        BIOMES.register(eventBus);
 
-    public IceSlimeEntity(EntityType<? extends Monster> p_32922_, Level p_32923_) {
-        super(p_32922_, p_32923_);
-        this.xpReward = 5;
+        // アイススライムエンティティのスポーン設定
+        MinecraftForge.EVENT_BUS.addListener(this::setup);
     }
 
-    @Override
-    protected void registerGoals() {
-        super.registerGoals();
+    private void setup() {
+        // バイオーム設定
+        Biome biome = new Biome.Builder()
+            .generationSettings(new BiomeGenerationSettings.Builder()
+                .surfaceBuilder(SurfaceBuilders.SNOWY)
+                .feature(GenerationStep.Decoration.SURFACE_STRUCTURES, ConfiguredFeature.ICE_SPIKE)
+                .build())
+            .mobSpawnSettings(new MobSpawnSettings.Builder()
+                .addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnEntry(IceSlimeEntity.ICE_SLIME.get(), 100, 2, 4))
+                .build())
+            .temperature(0.0F)  // 氷の温度
+            .build();
 
-        // プレイヤーに向かって攻撃
-        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.0D, true));
-        
-        // プレイヤーを見つめる
-        this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8.0F));
-
-        // ランダムに歩き回る
-        this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1.0D));
-
-        // マグマを避ける
-        this.goalSelector.addGoal(4, new AvoidLavaGoal(this, 2.0D));
-
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
-    }
-
-    @Override
-    public InteractionResult mobInteract(Player player, InteractionHand hand) {
-        if (!this.level.isClientSide) {
-            this.hurt(DamageSource.playerAttack(player), (float) DAMAGE);
-            return InteractionResult.SUCCESS;
-        }
-        return InteractionResult.PASS;
-    }
-
-    @Override
-    public int getHealth() {
-        return 60; // HP
-    }
-
-    // マグマを避けるためのGoalクラス
-    static class AvoidLavaGoal extends Goal {
-        private final IceSlimeEntity slime;
-        private final double speed;
-
-        public AvoidLavaGoal(IceSlimeEntity slime, double speed) {
-            this.slime = slime;
-            this.speed = speed;
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE));
-        }
-
-        @Override
-        public boolean canUse() {
-            // マグマブロックの近くにいる場合
-            return this.slime.level.getBlockState(this.slime.blockPosition().below()).is(Blocks.LAVA);
-        }
-
-        @Override
-        public void start() {
-            // マグマから一定距離離れる方向に移動
-            Vec3 avoidDirection = this.slime.getLookAngle().scale(-1);
-            this.slime.getNavigation().moveTo(this.slime.getX() + avoidDirection.x, this.slime.getY() + avoidDirection.y, this.slime.getZ() + avoidDirection.z, speed);
-        }
+        // アイステリアのバイオーム登録
+        ForgeRegistries.BIOMES.register("iceteria", biome);
+        BiomeDictionary.addTypes(biome, BiomeDictionary.Type.SNOWY, BiomeDictionary.Type.COLD);
     }
 }
