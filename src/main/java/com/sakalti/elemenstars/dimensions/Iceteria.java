@@ -22,7 +22,7 @@ public class Iceteria {
 
     public static final DeferredRegister<DimensionType> DIMENSIONS = DeferredRegister.create(ForgeRegistries.DIMENSIONS, elemenstars.MOD_ID);
     public static final RegistryObject<DimensionType> ICETERIA_DIM = DIMENSIONS.register("iceteria", () -> DimensionType.createOverworld(new IceteriaDimensionType()));
-    
+
     public static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(ForgeRegistries.BIOMES, elemenstars.MOD_ID);
 
     public static void register(IEventBus eventBus) {
