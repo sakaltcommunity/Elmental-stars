@@ -27,7 +27,7 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "elemenstars:entities/firestar"
+          "name": "elemenstars:entities/fire_star"
         }
       ]
     }
