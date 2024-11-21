@@ -2,6 +2,7 @@ package com.sakalti.elemenstars.tabs;
 
 import com.sakalti.elemenstars.elemenstars;
 import com.sakalti.elemenstars.entities.IceSlimeEntity;
+import com.sakalti.elemenstars.entities.IceZalgEntity; // IceZalgEntityをインポート
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -24,6 +25,11 @@ public class IceteriaTab {
             () -> new SpawnEggItem(IceSlimeEntity.ICE_SLIME, 0xADD8E6, 0xFFFFFF, // 色設定 (薄い青と白)
                     new Item.Properties()));
 
+    // アイスザルグのスポーンエッグを登録
+    public static final RegistryObject<Item> ICE_ZALG_SPAWN_EGG = ITEMS.register("ice_zalg_spawn_egg",
+            () -> new SpawnEggItem(IceZalgEntity.ICE_ZALG, 0xADD8E6, 0x0000FF, // 色設定 (薄い青と青)
+                    new Item.Properties()));
+
     // 新しいクリエイティブモードタブを定義
     public static final CreativeModeTab ICETERIA_TAB = new CreativeModeTab("iceteria_tab") {
         @Override
@@ -37,6 +43,7 @@ public class IceteriaTab {
     public static void onCreativeTabBuild(CreativeModeTabEvent.BuildContents event) {
         if (event.getTab() == ICETERIA_TAB) {
             event.accept(ICE_SLIME_SPAWN_EGG); // スポーンエッグをタブに追加
+            event.accept(ICE_ZALG_SPAWN_EGG); // アイスザルグスポーンエッグをタブに追加
         }
     }
 }
