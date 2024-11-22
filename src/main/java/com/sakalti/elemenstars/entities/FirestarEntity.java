@@ -38,6 +38,13 @@ public class FireStarEntity extends Monster {
         this.setHealth(45); // HPを45に設定
     }
 
+    // ルートテーブルの設定
+    public static final ResourceLocation FIRE_STAR_LOOT_TABLE = new ResourceLocation("elemenstars", "entities/fire_star");
+
+    @Override
+    protected ResourceLocation getDefaultLootTable() {
+        return FIRE_STAR_LOOT_TABLE;
+    }
     // AIの設定
     @Override
     protected void addBehaviourGoals() {
