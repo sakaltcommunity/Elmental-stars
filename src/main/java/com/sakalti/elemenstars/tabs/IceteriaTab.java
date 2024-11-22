@@ -2,11 +2,9 @@ package com.sakalti.elemenstars.tabs;
 
 import com.sakalti.elemenstars.elemenstars;
 import com.sakalti.elemenstars.entities.IceSlimeEntity;
-import com.sakalti.elemenstars.entities.IceZalgEntity; // IceZalgEntityをインポート
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SpawnEggItem;
+import com.sakalti.elemenstars.entities.IceZalgEntity;
+import com.sakalti.elemenstars.items.IceArmorMaterial;
+import net.minecraft.world.item.*;
 import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -20,21 +18,31 @@ public class IceteriaTab {
     // DeferredRegisterでアイテム登録を管理
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, elemenstars.MOD_ID);
 
-    // アイススライムのスポーンエッグを登録
+    // スポーンエッグ
     public static final RegistryObject<Item> ICE_SLIME_SPAWN_EGG = ITEMS.register("ice_slime_spawn_egg",
-            () -> new SpawnEggItem(IceSlimeEntity.ICE_SLIME, 0xADD8E6, 0xFFFFFF, // 色設定 (薄い青と白)
-                    new Item.Properties()));
+            () -> new SpawnEggItem(IceSlimeEntity.ICE_SLIME, 0xADD8E6, 0xFFFFFF, new Item.Properties()));
 
-    // アイスザルグのスポーンエッグを登録
     public static final RegistryObject<Item> ICE_ZALG_SPAWN_EGG = ITEMS.register("ice_zalg_spawn_egg",
-            () -> new SpawnEggItem(IceZalgEntity.ICE_ZALG, 0xADD8E6, 0x0000FF, // 色設定 (薄い青と青)
-                    new Item.Properties()));
+            () -> new SpawnEggItem(IceZalgEntity.ICE_ZALG, 0xADD8E6, 0x0000FF, new Item.Properties()));
+
+    // アイスアーマー
+    public static final RegistryObject<Item> ICE_HELMET = ITEMS.register("ice_helmet",
+            () -> new ArmorItem(new IceArmorMaterial(), ArmorItem.Type.HELMET, new Item.Properties()));
+
+    public static final RegistryObject<Item> ICE_CHESTPLATE = ITEMS.register("ice_chestplate",
+            () -> new ArmorItem(new IceArmorMaterial(), ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+
+    public static final RegistryObject<Item> ICE_LEGGINGS = ITEMS.register("ice_leggings",
+            () -> new ArmorItem(new IceArmorMaterial(), ArmorItem.Type.LEGGINGS, new Item.Properties()));
+
+    public static final RegistryObject<Item> ICE_BOOTS = ITEMS.register("ice_boots",
+            () -> new ArmorItem(new IceArmorMaterial(), ArmorItem.Type.BOOTS, new Item.Properties()));
 
     // 新しいクリエイティブモードタブを定義
     public static final CreativeModeTab ICETERIA_TAB = new CreativeModeTab("iceteria_tab") {
         @Override
         public ItemStack makeIcon() {
-            return new ItemStack(ICE_SLIME_SPAWN_EGG.get()); // スポーンエッグをアイコンに設定
+            return new ItemStack(ICE_SLIME_SPAWN_EGG.get());
         }
     };
 
@@ -42,8 +50,12 @@ public class IceteriaTab {
     @SubscribeEvent
     public static void onCreativeTabBuild(CreativeModeTabEvent.BuildContents event) {
         if (event.getTab() == ICETERIA_TAB) {
-            event.accept(ICE_SLIME_SPAWN_EGG); // スポーンエッグをタブに追加
-            event.accept(ICE_ZALG_SPAWN_EGG); // アイスザルグスポーンエッグをタブに追加
+            event.accept(ICE_SLIME_SPAWN_EGG);
+            event.accept(ICE_ZALG_SPAWN_EGG);
+            event.accept(ICE_HELMET);
+            event.accept(ICE_CHESTPLATE);
+            event.accept(ICE_LEGGINGS);
+            event.accept(ICE_BOOTS);
         }
     }
 }
