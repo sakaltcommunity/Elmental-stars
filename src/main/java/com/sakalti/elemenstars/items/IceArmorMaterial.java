@@ -12,7 +12,7 @@ public class IceArmorMaterial implements ArmorMaterial {
     private static final int[] DEFENSE_PER_SLOT = new int[]{4, 9, 7, 4}; // 防御力
     private static final int ENCHANTABILITY = 10; // エンチャント性
     private static final float TOUGHNESS = 4.0F; // 耐久性
-    private static final float KNOCKBACK_RESISTANCE = 0.0F; // ノックバック耐性
+    private static final float KNOCKBACK_RESISTANCE = 0.7F; // ノックバック耐性
 
     @Override
     public int getDurabilityForType(Type type) {
