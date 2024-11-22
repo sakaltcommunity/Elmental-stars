@@ -1,36 +1,29 @@
 package com.sakalti.elemenstars.entities;
 
+import com.mojang.logging.LogUtils;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.ai.goal.RandomTeleportGoal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.WanderAroundGoal;
-import net.minecraft.world.entity.ai.goal.FlyingGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.entity.MobType;
-import net.minecraft.network.chat.TextComponent;
-
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
-import com.sakalti.elemenstars.elemenstars;
-
-import net.minecraft.world.entity.ai.goal.GoalSelector;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.entity.boss.BossBar;
 import net.minecraft.world.entity.boss.BossBarColor;
 import net.minecraft.world.entity.boss.BossBarStyle;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.RegistryObject;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.world.entity.boss.BossBar;
 
 public class IceZalgEntity extends Monster {
 
@@ -43,6 +36,14 @@ public class IceZalgEntity extends Monster {
     public IceZalgEntity(EntityType<? extends Monster> type, Level world) {
         super(type, world);
         this.xpReward = 999;  // 経験値設定
+    }
+
+    // ルートテーブルの設定
+    public static final ResourceLocation ICE_ZALG_LOOT_TABLE = new ResourceLocation("elemenstars", "entities/ice_zalg");
+
+    @Override
+    protected ResourceLocation getDefaultLootTable() {
+        return ICE_ZALG_LOOT_TABLE;
     }
 
     // AI：攻撃、ランダムテレポート、その他行動
