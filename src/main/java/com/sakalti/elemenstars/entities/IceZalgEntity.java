@@ -114,7 +114,7 @@ public class IceZalgEntity extends Monster {
                 net.minecraft.sounds.SoundEvents.ANVIL_USE, // 金床使用音
                 net.minecraft.sounds.SoundSource.HOSTILE, // サウンドカテゴリ
                 1.0F, // 音量
-                1.0F // ピッチ
+                0.4F // ピッチ
             );
         }
         return flag;
