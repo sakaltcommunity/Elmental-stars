@@ -17,13 +17,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.entity.boss.BossBar;
 import net.minecraft.world.entity.boss.BossBarColor;
 import net.minecraft.world.entity.boss.BossBarStyle;
-import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.level.storage.loot.LootTable;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraft.world.entity.boss.BossBar;
 
 public class IceZalgEntity extends Monster {
 
@@ -101,6 +100,24 @@ public class IceZalgEntity extends Monster {
             double z = this.entity.getZ() + (Math.random() * 2 - 1) * range;
             this.entity.teleportTo(x, y, z);
         }
+    }
+
+    // 攻撃時の音を追加
+    @Override
+    public boolean doHurtTarget(Entity target) {
+        boolean flag = super.doHurtTarget(target);
+        if (flag) {
+            // 金床の音を再生
+            this.level().playSound(
+                null, // プレイヤー範囲内で再生（nullなら全員に聞こえる）
+                this.blockPosition(), // 音の位置
+                net.minecraft.sounds.SoundEvents.ANVIL_USE, // 金床使用音
+                net.minecraft.sounds.SoundSource.HOSTILE, // サウンドカテゴリ
+                1.0F, // 音量
+                1.0F // ピッチ
+            );
+        }
+        return flag;
     }
 
     // 死亡時のカスタムドロップ
