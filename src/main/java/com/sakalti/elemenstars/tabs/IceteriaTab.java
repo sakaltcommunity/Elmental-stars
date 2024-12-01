@@ -25,7 +25,8 @@ public class IceteriaTab {
 
     public static final RegistryObject<Item> ICE_ZALG_SPAWN_EGG = ITEMS.register("ice_zalg_spawn_egg",
             () -> new SpawnEggItem(IceZalgEntity.ICE_ZALG, 0xADD8E6, 0x0000FF, new Item.Properties()));
-
+    
+    public static final RegistryObject<Item> ICEFLAME = ITEMS.register("iceflame", IceFlame::new);
     // アイスアーマー
     public static final RegistryObject<Item> ICE_HELMET = ITEMS.register("ice_helmet",
             () -> new ArmorItem(new IceArmorMaterial(), ArmorItem.Type.HELMET, new Item.Properties()));
