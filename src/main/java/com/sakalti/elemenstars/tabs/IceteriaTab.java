@@ -62,6 +62,7 @@ public class IceteriaTab {
             event.accept(ICE_LEGGINGS);
             event.accept(ICE_BOOTS);
             event.accept(ICEFLAME);
+            event.accept(ICE_INGOT);
         }
     }
 }
