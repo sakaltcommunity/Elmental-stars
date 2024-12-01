@@ -4,6 +4,7 @@ import com.sakalti.elemenstars.elemenstars;
 import com.sakalti.elemenstars.entities.IceSlimeEntity;
 import com.sakalti.elemenstars.entities.IceZalgEntity;
 import com.sakalti.elemenstars.items.IceArmorMaterial;
+import com.sakalti.elemenstars.items.IceFlame;
 import net.minecraft.world.item.*;
 import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -56,6 +57,7 @@ public class IceteriaTab {
             event.accept(ICE_CHESTPLATE);
             event.accept(ICE_LEGGINGS);
             event.accept(ICE_BOOTS);
+            event.accept(ICEFLAME);
         }
     }
 }
