@@ -5,6 +5,7 @@ import com.sakalti.elemenstars.entities.IceSlimeEntity;
 import com.sakalti.elemenstars.entities.IceZalgEntity;
 import com.sakalti.elemenstars.items.IceArmorMaterial;
 import com.sakalti.elemenstars.items.IceFlame;
+import com.sakalti.elemenstars.items.IceIngot;
 import net.minecraft.world.item.*;
 import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -27,6 +28,8 @@ public class IceteriaTab {
             () -> new SpawnEggItem(IceZalgEntity.ICE_ZALG, 0xADD8E6, 0x0000FF, new Item.Properties()));
     
     public static final RegistryObject<Item> ICEFLAME = ITEMS.register("iceflame", IceFlame::new);
+
+    public static final RegistryObject<Item> ICE_INGOT = ITEMS.register("ice_ingot", IceIngot::new);
     // アイスアーマー
     public static final RegistryObject<Item> ICE_HELMET = ITEMS.register("ice_helmet",
             () -> new ArmorItem(new IceArmorMaterial(), ArmorItem.Type.HELMET, new Item.Properties()));
